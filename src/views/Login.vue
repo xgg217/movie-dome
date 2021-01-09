@@ -1,16 +1,11 @@
 <template>
-  <p>首页</p>
+  <p>登录注册</p>
 </template>
 
 <script lang="ts">
-
 import { defineComponent } from "vue";
-
-
 export default defineComponent({
 
-  
-  
 })
 </script>
 

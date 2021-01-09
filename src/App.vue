@@ -1,13 +1,19 @@
 <template>
+
+
   <RouterView />
+  
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
+// import TabCmp from "./components/TabCmp.vue"
 
-export default {
-  name: 'App',
-  components: {
+export default defineComponent({
+
+  // components: {
+  //   "tab-cmp": TabCmp
+  // }
   
-  }
-}
+})
 </script>
