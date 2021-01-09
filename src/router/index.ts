@@ -4,14 +4,14 @@ const Index = () => import("./../views/Index.vue");
 const routes:RouteRecordRaw[] = [
   {
     path: "/",
-    component: Index
+    redirect: '/home/index'
   }, {
     path: "/home",
     component: () => import("./../views/Home.vue"),
     children: [
       {
         path: "",
-        component: Index
+        redirect: '/home/index'
       }, {
         path: "index",
         component: Index
@@ -26,7 +26,7 @@ const routes:RouteRecordRaw[] = [
         component: () => import("./../views/Search.vue")
       },
     ]
-  },  {
+  }, {
     path: "/login",
     component: () => import("./../views/Login.vue")
   }
