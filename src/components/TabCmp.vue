@@ -2,6 +2,7 @@
   <header>
     <div class="logo"></div>
     <ul>
+      <!-- 内容切换 -->
       <template v-for="item of routerArr" :key="item.title">
         <li>
           <router-link :to="item.src" custom v-slot="{ isActive, navigate }">
@@ -11,21 +12,40 @@
       </template>
     </ul>
     <div class="logins">
-      <router-link to="/login"></router-link>
+      <!-- 登录注册 -->
+      <router-link to="/login" custom v-slot="{ navigate }">
+        <van-icon
+          color="#1989fa"
+          size="20"
+          name="https://b.yzcdn.cn/vant/icon-demo-1126.png"
+          @click="navigate"
+        />
+      </router-link>
     </div>
   </header>
 </template>
 
+
 <script lang="ts">
+import { defineComponent, ref } from "vue";
+import { Icon } from 'vant';
 
 interface Urls {
   title: string
   src: string
 }
-
-import { defineComponent, ref } from "vue";
 export default defineComponent({
+
+  components: {
+    [Icon.name]: Icon,
+  },
+
+
   setup() {
+
+
+    console.log(Icon);
+    
     const routerArr:Urls[] = [
       {
         title: "首页",
@@ -87,10 +107,12 @@ ul {
 
 .logins {
   width: 15%;
-  border: 1px solid red;
-  a {
-    display: block;
-    height: 100%;
+  // border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  i {
+    width: 70%;
   }
 }
 
