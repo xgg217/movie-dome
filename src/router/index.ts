@@ -20,7 +20,7 @@ const routes:RouteRecordRaw[] = [
         component: () => import("./../views/Category.vue")
       }, {
         path: "rank",
-        component: () => import("./../views/Rank.vue")
+        component: () => import("./../views/Rank/Index.vue")
       }, {
         path: "search",
         component: () => import("./../views/Search.vue")
