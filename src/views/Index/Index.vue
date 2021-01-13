@@ -43,9 +43,19 @@
 
 <script lang="ts">
 
-import { defineComponent } from "vue";
+import { defineComponent, watchEffect, ref, reactive } from "vue";
 import { Image, Icon } from "vant"
+import { getHotAPI } from "./../../api/home"
+interface Mov {
+  id:string
+  title:string
+  rate:string
+}
 
+interface List {
+  count:number
+  movies:Mov[]
+}
 
 export default defineComponent({
 
@@ -53,6 +63,29 @@ export default defineComponent({
     [Image.name]: Image,
     [Icon.name]: Icon,
   },
+
+  setup() {
+
+    // const commingCountRef = 
+
+    // const comming = reactive<List>({
+    //   count: 0,
+    //   movies: []
+    // });
+
+    // const playing = reactive({
+    //   count: 0,
+    //   movies: []
+    // });
+
+
+    watchEffect( async() => {
+      const { code, errMsg, data }= await getHotAPI();
+      const { comming, playing } = data;
+      // comming
+    });
+
+  }
   
 })
 </script>

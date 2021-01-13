@@ -5,7 +5,8 @@ const routes:RouteRecordRaw[] = [
   {
     path: "/",
     redirect: '/home/index'
-  }, {
+  },
+  {
     path: "/home",
     component: () => import("./../views/Home.vue"),
     children: [
