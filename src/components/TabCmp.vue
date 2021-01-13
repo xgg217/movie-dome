@@ -16,7 +16,7 @@
       <router-link to="/login" custom v-slot="{ navigate }">
         <van-icon
           color="#1989fa"
-          size="20"
+          size="40"
           name="https://b.yzcdn.cn/vant/icon-demo-1126.png"
           @click="navigate"
         />

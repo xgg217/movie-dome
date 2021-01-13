@@ -1,32 +1,86 @@
 <template>
   <section>
-    <ul>
-      <li>
-        <p class="rank-text rank-1">1</p>
-        <div class="image">
-          <van-image fit="contain" width="83" height="130" src="https://img.yzcdn.cn/vant/cat.jpeg"></van-image>
-        </div>
-        <div class="descript">
-          <h4>温泉屋的小老板娘 若おかみは小学生！</h4>
-          <p>上映时间: 2021-01-29</p>
-          <p>主演: 高坂希太郎,小林星兰,水树奈奈,松田飒水,远藤璃菜,小樱悦子</p>
-          <p>时长: 95分钟</p>
-        </div>
-      </li>
-    </ul>
+    <scroll-cmp>
+      <ul>
+        <template v-for="(item, index) of rankList" :key="item.id">
+          <rank-card
+            :rank="item"
+            :index="index + 1"
+            @click="goMoviePage(item.id)"
+          >
+          </rank-card>
+        </template>
+      </ul>
+    </scroll-cmp>
+    
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Image, Icon } from "vant"
+import { defineComponent, watchEffect, ref } from "vue";
+import { useRouter } from "vue-router";
+import RankCard from "./../../components/RankCard.vue"
+import Scroll from "./../../components/Scroll.vue"
+
+import { Rank } from "./../../types/rank";
+
+import { Toast } from "vant";
+
+import { getRankAPI } from "./../../api/home";
+
+interface Casts {
+  name:string // 主角名字
+}
+
 export default defineComponent({
 
   components: {
-    [Image.name]: Image,
-    [Icon.name]: Icon,
+    "rank-card": RankCard,
+    "scroll-cmp": Scroll
   },
 
+  setup() {
+
+    const rankListRef = ref([]);
+
+    const router = useRouter();
+    
+    watchEffect(async() => {
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true,
+      });
+
+      const { code, errMsg, data }= await getRankAPI();
+      Toast.clear();
+
+      rankListRef.value = data.map((item:any):Rank  => {
+        const arr = item.casts.map((item:Casts):string => {
+          return item.name
+        });
+        return {
+          id: item.id,
+          title: item.title, // 电影名称
+          duration: item.duration, // 电影时长
+          isPlay: !!Number(item.isPlay), // 是否正在上映
+          rate: item.rate, // 评分--如果没有上映就显示上映时间，否则显示电影评分
+          casts: arr.join(","), // 主角们
+          poster:item.poster, // 图片地址
+          pubdate: item.pubdate // 上映时间
+        };
+      })
+    });
+
+    // 跳转到预告片页面
+    const goMoviePage = (id:string) => {
+      router.push(`/movie/${id}`);
+    }
+
+    return {
+      rankList: rankListRef,
+      goMoviePage
+    }
+  }
 })
 </script>
 
@@ -34,74 +88,5 @@ export default defineComponent({
 ul {
   display: flex;
   flex-direction: column;
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px 10px 0;
-    box-sizing: border-box;
-
-    .rank-text {
-      width: 30px;
-      height: 30px;
-      font-weight: 700;
-      background-color: #f5f7fa;
-      color: #909399;
-      text-align: center;
-      line-height: 30px;
-      margin: 0 10px;
-    }
-
-    .rank-1,
-    .rank-2,
-    .rank-3 {
-      color: #fff;
-    }
-
-    .rank-1 {
-      background: #ef4238;
-    }
-    .rank-2 {
-      background: #ffb400;
-    }
-    .rank-3 {
-      background: #ffb47a;
-    }
-
-    .image {
-      width: 80px;
-      height: 120px;
-      // border: 1px solid red;
-    }
-
-    .descript {
-      flex: 1;
-      margin-left: 10px;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      width: 100%;
-      border-bottom: 1px solid #dcdfe6;
-      overflow: hidden;
-      font-size: 13px;
-      color: #606266;
-      line-height: 30px;
-
-      h4 {
-        width: 100%;
-        color: #303133;
-        font-size: 17px;
-        font-weight: 700;
-      }
-
-      h4,
-      p {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-  }
 }
 </style>

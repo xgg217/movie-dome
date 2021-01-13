@@ -1,11 +1,5 @@
 import request from "./../utils/request";
 
-interface Data {
-  code:number
-  errMsg:string
-  data:object
-}
-
 /**
  * 获取首页电影列表
  */
@@ -16,7 +10,19 @@ const getHotAPI = ():any => {
   })
 }
 
+/**
+ * 获取榜单数据
+ */
+const getRankAPI = ():any => {
+  return request({
+    url: `/api/movie/rank`,
+    method: 'get',
+  })
+}
+
+
 export {
-  getHotAPI
+  getHotAPI,
+  getRankAPI
 }
 

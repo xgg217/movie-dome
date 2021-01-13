@@ -30,6 +30,9 @@ const routes:RouteRecordRaw[] = [
   }, {
     path: "/login",
     component: () => import("./../views/Login.vue")
+  }, {
+    path: "/movie/:id",
+    component: () => import("./../views/Movie/Index.vue")
   }
 ];
 
