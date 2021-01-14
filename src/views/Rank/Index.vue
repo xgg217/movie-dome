@@ -12,7 +12,6 @@
         </template>
       </ul>
     </scroll-cmp>
-    
   </section>
 </template>
 
@@ -40,9 +39,7 @@ export default defineComponent({
   },
 
   setup() {
-
     const rankListRef = ref([]);
-
     const router = useRouter();
     
     watchEffect(async() => {
