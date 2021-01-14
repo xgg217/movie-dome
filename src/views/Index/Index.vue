@@ -8,13 +8,11 @@
         </div>
         <ul>
           <template v-for="item of playingMovies" :key="item.id">
-            <li @click="goMoviePage(item.id)">
-              <div class="image">
-                <van-image fit="contain" width="83" height="130" :src="item.poster"></van-image>
-                <em>{{ item.rate }}</em>
-              </div>
-              <p>{{ item.title }}</p>
-            </li>
+            <card-cmp
+              @click="goMoviePage(item.id)"
+              :cardObj="item"
+            >
+            </card-cmp>
           </template>
         </ul>
       </div>
@@ -28,13 +26,10 @@
         </div>
         <ul>
           <template v-for="item of commingMovies" :key="item.id">
-            <li @click="goMoviePage(item.id)">
-              <div class="image">
-                <van-image fit="contain" width="83" height="130" :src="item.poster"></van-image>
-                <em>{{ item.rate }}</em>
-              </div>
-              <p>{{ item.title }}</p>
-            </li>
+            <card-cmp
+              @click="goMoviePage(item.id)"
+              :cardObj="item"
+            >
           </template>
         </ul>
       </div>
@@ -47,7 +42,8 @@
 import { defineComponent, watchEffect, ref, reactive, toRef } from "vue";
 import { useRouter } from "vue-router";
 import Scroll from "./../../components/Scroll.vue"
-import { Image, Icon, Toast } from "vant"
+import Card from "./cmp/Card.vue";
+import { Icon, Toast } from "vant"
 import { getHotAPI } from "./../../api/home"
 interface Mov {
   id:string
@@ -64,9 +60,9 @@ interface List {
 export default defineComponent({
 
   components: {
-    [Image.name]: Image,
     [Icon.name]: Icon,
     "scroll-cmp": Scroll,
+    "card-cmp": Card
   },
 
   setup() {
@@ -82,6 +78,7 @@ export default defineComponent({
       movies: []
     });
 
+    // 获取电影信息
     watchEffect( async() => {
       Toast.loading({
         message: '加载中...',
@@ -103,7 +100,6 @@ export default defineComponent({
         playingRef.count = count;
         playingRef.movies = movies;
       }
-
     });
 
     // 跳转到预告片页面
@@ -116,7 +112,6 @@ export default defineComponent({
       commingMovies: toRef(commingRef, "movies"),
       playingCount: toRef(playingRef, "count"), // 正在热映
       playingMovies: toRef(playingRef, "movies"),
-
       goMoviePage
     }
 
@@ -146,32 +141,7 @@ export default defineComponent({
     align-items: normal;
     justify-content: space-between;
 
-    li {
-
-      .image {
-        position:relative;
-        top: 0;
-        left: 0;
-
-        em {
-          position: absolute;
-          right: 5px;
-          bottom: 8px;
-          font-weight: 700;
-          color: #ffb400;
-        }
-      }
-
-      p {
-        width: 80px;
-        padding: 10px 0;
-        font-size: 15px;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
+    
   }
 }
 
