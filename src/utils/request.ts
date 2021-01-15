@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Toast } from "vant";
 
 /* 防止重复提交，利用axios的cancelToken */
 let pending: any[] = []; // 声明一个数组用于存储每个ajax请求的取消函数和ajax标识
@@ -70,6 +71,9 @@ service.interceptors.response.use(
   (error: any) => {
     // 异常处理
     console.log(error)
+
+    Toast.fail("请求失败，请稍后再试");
+
     pending = [];
     if (error.message === '取消重复请求') {
       return Promise.reject(error);
