@@ -18,7 +18,7 @@ const routes:RouteRecordRaw[] = [
         component: Index
       }, {
         path: "category",
-        component: () => import("./../views/Category.vue")
+        component: () => import("./../views/Category/Index.vue")
       }, {
         path: "rank",
         component: () => import("./../views/Rank/Index.vue")
