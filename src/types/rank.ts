@@ -8,3 +8,18 @@ export interface Rank {
   poster:string // 图片地址
   pubdate:string // 上映时间
 }
+
+export interface Category {
+  id:number
+  name:string
+}
+
+/**
+ * 是否上映
+ */
+type PlayName = "全部" | "已上映" | "未上映";
+type PlayType = "" | "1" | "0";
+export interface Play {
+  name:PlayName
+  type:PlayType
+}
