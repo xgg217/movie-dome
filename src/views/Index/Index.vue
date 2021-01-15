@@ -30,6 +30,7 @@
               @click="goMoviePage(item.id)"
               :cardObj="item"
             >
+            </card-cmp>
           </template>
         </ul>
       </div>
