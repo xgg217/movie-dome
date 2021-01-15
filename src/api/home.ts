@@ -31,9 +31,21 @@ const getMovieStatusAPI = ( status:number, rate:string):any => {
 }
 
 
+/**
+ * 获取分类数据
+ */
+const getCategoryAPI = ():any => {
+  return request({
+    url: `/api/category`,
+    method: 'get',
+  })
+}
+
+
 export {
   getHotAPI,
   getRankAPI,
-  getMovieStatusAPI
+  getMovieStatusAPI,
+  getCategoryAPI
 }
 
