@@ -43,9 +43,6 @@ export default defineComponent({
 
   setup() {
 
-
-    console.log(Icon);
-    
     const routerArr:Urls[] = [
       {
         title: "首页",
