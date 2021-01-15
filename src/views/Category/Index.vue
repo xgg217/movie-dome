@@ -1,11 +1,11 @@
 <template>
   <div class="head">
-    <sheet-cmp>
+    <sheet-cmp :typeList="typeList">
     </sheet-cmp>
   </div>
   <scroll-cmp :heightValue="80">
     <ul>
-      <template v-for="(item, index) of rankList" :key="item.id">
+      <template v-for="item of rankList" :key="item.id">
         <rank-card
           :rank="item"
           @click="goMoviePage(item.id)"
@@ -25,8 +25,8 @@ import Scroll from "./../../components/Scroll.vue";
 import RankCard from "./../../components/RankCard.vue"
 import { Toast } from "vant";
 
-import { getMovieStatusAPI } from "./../../api/home";
-import { Rank } from "./../../types/rank";
+import { getMovieStatusAPI, getCategoryAPI } from "./../../api/home";
+import { Rank, Category } from "./../../types/rank";
 
 interface Casts {
   name:string // 主角名字
@@ -42,10 +42,12 @@ export default defineComponent({
 
   setup() {
     const rankListRef = ref<Rank[]>([]);
+    const typeListRef = ref<Category[]>([]); // 类型
+
     const router = useRouter();
 
+    // 获取电影列表接口
     watchEffect(async () => {
-
       Toast.loading({
         message: '加载中...',
         forbidClick: true,
@@ -72,12 +74,21 @@ export default defineComponent({
 
     });
 
+    // 获取分类
+    watchEffect( async() => {
+      const { code, data, errMsg } = await getCategoryAPI();
+      typeListRef.value = data.map((item:Category):Category => {
+        return item
+      })
+    });
+
     const goMoviePage = () => {
       // router.push(`/movie/${id}`);
     }
 
     return {
       rankList: rankListRef,
+      typeList: typeListRef,
       goMoviePage
     }
   }
