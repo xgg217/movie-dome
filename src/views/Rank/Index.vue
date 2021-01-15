@@ -39,7 +39,7 @@ export default defineComponent({
   },
 
   setup() {
-    const rankListRef = ref([]);
+    const rankListRef = ref<Rank[]>([]);
     const router = useRouter();
     
     watchEffect(async() => {
