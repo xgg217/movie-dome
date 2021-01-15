@@ -20,9 +20,20 @@ const getRankAPI = ():any => {
   })
 }
 
+/**
+ * 获取分类数据
+ */
+const getMovieStatusAPI = ( status:number, rate:string):any => {
+  return request({
+    url: `/api/movie?status=${ status }&rate=${ rate }`,
+    method: 'get',
+  })
+}
+
 
 export {
   getHotAPI,
-  getRankAPI
+  getRankAPI,
+  getMovieStatusAPI
 }
 
