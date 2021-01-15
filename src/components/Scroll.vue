@@ -1,12 +1,17 @@
 <template>
-  <div class="scroll-wrapper">
+  <div class="scroll-wrapper" :style="{ height: heightValue + 'vh' }">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    heightValue: {
+      type: Number,
+      default: 90
+    }
+  }
 }
 </script>
 
