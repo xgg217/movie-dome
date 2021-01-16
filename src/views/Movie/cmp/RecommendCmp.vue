@@ -10,8 +10,8 @@
     </div>
     <div class="right">
       <p>{{ rankObj.title }}</p>
-      <p>豆瓣评分：<span>{{ rankObj.rate }}</span></p>
-      <!-- <p>上映时间：</p> -->
+      <p v-if="rankObj.isPlay">豆瓣评分：<span>{{ rankObj.rate }}</span></p>
+      <p v-else>上映时间：{{ rankObj.pubdate }}</p>
       <p>类型:{{ rankObj.casts }}</p>
     </div>
   </li>
