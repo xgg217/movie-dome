@@ -42,10 +42,10 @@
 
 import { defineComponent, watchEffect, ref, reactive, toRef } from "vue";
 import { useRouter } from "vue-router";
-import Scroll from "./../../components/Scroll.vue"
+import Scroll from "/@/components/Scroll.vue"
 import Card from "./cmp/Card.vue";
 import { Icon, Toast } from "vant"
-import { getHotAPI } from "./../../api/home"
+import { getHotAPI } from "/@/api/home"
 interface Mov {
   id:string
   title:string // 标题

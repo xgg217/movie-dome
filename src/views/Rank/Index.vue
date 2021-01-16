@@ -18,14 +18,14 @@
 <script lang="ts">
 import { defineComponent, watchEffect, ref } from "vue";
 import { useRouter } from "vue-router";
-import RankCard from "./../../components/RankCard.vue"
-import Scroll from "./../../components/Scroll.vue"
+import RankCard from "/@/components/RankCard.vue"
+import Scroll from "/@/components/Scroll.vue"
 
-import { Rank } from "./../../types/rank";
+import { Rank } from "/@/types/rank";
 
 import { Toast } from "vant";
 
-import { getRankAPI } from "./../../api/home";
+import { getRankAPI } from "/@/api/home";
 
 interface Casts {
   name:string // 主角名字
