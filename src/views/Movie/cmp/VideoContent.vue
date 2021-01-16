@@ -34,6 +34,7 @@ export default defineComponent({
     videoUrl: String, // 电影
     movieTypes: String, // 电影类型
     cover: String, // 电影类型
+    movieObj:String, // 上映时间
   }
 })
 </script>
