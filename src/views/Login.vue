@@ -9,6 +9,6 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>

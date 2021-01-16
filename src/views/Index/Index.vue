@@ -85,7 +85,7 @@ export default defineComponent({
         message: '加载中...',
         forbidClick: true,
       });
-      const { code, errMsg, data }= await getHotAPI();
+      const { code, errMsg, data } = await getHotAPI();
       Toast.clear();
 
       const { comming, playing } = data;
@@ -141,8 +141,6 @@ export default defineComponent({
     flex-wrap: wrap;
     align-items: normal;
     justify-content: space-between;
-
-    
   }
 }
 

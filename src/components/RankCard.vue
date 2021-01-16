@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent, watchEffect, ref, PropType, computed } from "vue";
-import { Rank } from "./../types/rank";
+import { Rank } from "/@/types/rank";
 
 import { Image } from "vant";
 
@@ -97,7 +97,6 @@ li {
   .image {
     width: 80px;
     height: 120px;
-    // border: 1px solid red;
   }
 
   .descript {
