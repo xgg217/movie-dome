@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watchEffect, ref } from "vue";
+import { defineComponent, watchEffect, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import Sheet from "./cmp/Sheet.vue";
 import Scroll from "/@/components/Scroll.vue";
@@ -46,6 +46,12 @@ export default defineComponent({
 
     const router = useRouter();
 
+    const categoryRef = reactive<UpdataCategoryData>({
+      status: "1",
+      rate: [0,10],
+      // type: [],
+    })
+
     // 获取电影列表接口
     watchEffect(async () => {
       Toast.loading({
@@ -53,7 +59,9 @@ export default defineComponent({
         forbidClick: true,
       });
 
-      const { code, data, errMsg } = await getMovieStatusAPI(1, JSON.stringify([0,10]));
+      // const { code, data, errMsg } = await getMovieStatusAPI(1, [0,10], []);
+      const {status, rate} = categoryRef;
+      const { code, data, errMsg } = await getMovieStatusAPI(status, rate);
       Toast.clear();
 
       rankListRef.value = data.map((item:any):Rank  => {
@@ -94,14 +102,18 @@ export default defineComponent({
     const updataCategory = (obj:UpdataCategoryData) => {
       // const {  } = 
      const { type, status, rate } = obj;
-      
+
+      categoryRef.type = type;
+      categoryRef.rate = rate;
+      categoryRef.status = status;
     };
 
     return {
       rankList: rankListRef,
       typeList: typeListRef,
       goMoviePage,
-      updataCategory
+      updataCategory,
+      categoryRef
     }
   }
 })

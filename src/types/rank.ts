@@ -28,7 +28,7 @@ export interface Play {
  * 更新分类
  */
 export interface UpdataCategoryData {
-  type: number[]
+  type?: number[]
   status: string
   rate: number[]
 }

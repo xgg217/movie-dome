@@ -23,9 +23,14 @@ const getRankAPI = ():any => {
 /**
  * 获取分类数据
  */
-const getMovieStatusAPI = ( status:number, rate:string):any => {
+const getMovieStatusAPI = ( status:string, rate:number[], ):any => {
   return request({
-    url: `/api/movie?status=${ status }&rate=${ rate }`,
+    url: `/api/movie`,
+    params: {
+      status,
+      rate: JSON.stringify(rate),
+      // categories: JSON.stringify(type) // 该参数不能用
+    },
     method: 'get',
   })
 }
