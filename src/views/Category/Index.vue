@@ -90,13 +90,9 @@ export default defineComponent({
       })
     });
 
-    const goMoviePage = () => {
-      // router.push(`/movie/${id}`);
-    }
-
-    // type: typeArrRef.value,
-    //     status: playTypeRef.value,
-    //     rate: scoreArrRef.value
+    const goMoviePage = (id:string) => {
+      router.push(`/movie/${id}`);
+    };
 
     // 获取新的数据请求
     const updataCategory = (obj:UpdataCategoryData) => {
