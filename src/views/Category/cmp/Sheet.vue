@@ -32,7 +32,7 @@
   </van-action-sheet>
 
   <!-- 是否上映 -->
-  <van-popup v-model:show="playShow" round position="bottom">
+  <van-popup v-model:show="playShow" round position="bottom" :style="{ height: '30%' }">
     <van-picker
       show-toolbar
       :columns="playArr"
@@ -64,12 +64,14 @@ import { defineComponent, PropType, ref, reactive, computed } from "vue";
 
 import { Picker, Popup, Slider, ActionSheet, Checkbox, CheckboxGroup, Button } from 'vant';
 
-import { Rank, Play, Category } from "./../../../types/rank";
+import { Rank, Play, Category, UpdataCategoryData } from "/@/types/rank";
 
 interface Score {
   ids:number
   name:string
 }
+
+
 
 export default defineComponent({
   props: {
@@ -77,6 +79,10 @@ export default defineComponent({
       type: Array as PropType<Category[] | []>,
       required: true,
     }
+  },
+
+  emits: {
+    "updataCategory": null
   },
 
   components: {
@@ -89,9 +95,10 @@ export default defineComponent({
     [Button.name]: Button,
   },
 
-  setup(props, ctr) {
+  setup(props, ctx) {
     const typeShowRef = ref(false);
     const typeArrRef = ref<number[]>([]);
+    const typeTempArrRef = ref<number[]>([]); // 临时
 
     const playArrRef = ref<Play[]>([
       { name: "全部", type: "" },
@@ -100,40 +107,56 @@ export default defineComponent({
     ]);
     const playShowRef = ref(false);
     const playValueRef = ref(playArrRef.value[1].name);
+    const playTypeRef = ref(playArrRef.value[1].type);
 
     const scoreArrRef = ref<number[]>([0, 10]);
     const scoreShowRef = ref(false);
 
     // 确定
     const onDetermine = () => {
-      console.log(typeArrRef.value);
+      typeTempArrRef.value = typeArrRef.value;
+      typeShowRef.value = false;
+      const obj:UpdataCategoryData = {
+        type: typeArrRef.value,
+        status: playTypeRef.value,
+        rate: scoreArrRef.value
+      };
+      ctx.emit("updataCategory", obj);
     };
 
     // 关闭分类
     const onClose = () => {
-      console.log("关闭");
-      
+      typeArrRef.value = typeTempArrRef.value;
     };
 
     // 选择上映类型
     const onConfirm = (value:Play) => {
-      console.log(value);
-      console.log(value.name);
-      console.log(value.type);
       playShowRef.value = false;
       playValueRef.value = value.name;
+      playTypeRef.value = value.type;
+
+      const obj:UpdataCategoryData = {
+        type: typeArrRef.value,
+        status: value.type,
+        rate: scoreArrRef.value
+      };
+      console.log(obj);
+      
+      ctx.emit("updataCategory", obj);
     };
 
+    // 关闭
     const onConfirmScore = (value:Score) => {
-      console.log(value);
-      console.log(value.name);
-      console.log(value.ids);
       scoreShowRef.value = false;
     }
 
     const onChange = (val:number[]) => {
-      console.log(val);
-      
+      const obj:UpdataCategoryData = {
+        type: typeArrRef.value,
+        status: playTypeRef.value,
+        rate: val
+      };
+      ctx.emit("updataCategory", obj);
     };
 
 

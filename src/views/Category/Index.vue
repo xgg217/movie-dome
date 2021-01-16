@@ -1,6 +1,6 @@
 <template>
   <div class="head">
-    <sheet-cmp :typeList="typeList">
+    <sheet-cmp :typeList="typeList" @updataCategory="updataCategory">
     </sheet-cmp>
   </div>
   <scroll-cmp :heightValue="80">
@@ -21,12 +21,12 @@
 import { defineComponent, watchEffect, ref } from "vue";
 import { useRouter } from "vue-router";
 import Sheet from "./cmp/Sheet.vue";
-import Scroll from "./../../components/Scroll.vue";
-import RankCard from "./../../components/RankCard.vue"
+import Scroll from "/@/components/Scroll.vue";
+import RankCard from "/@/components/RankCard.vue"
 import { Toast } from "vant";
 
-import { getMovieStatusAPI, getCategoryAPI } from "./../../api/home";
-import { Rank, Category } from "./../../types/rank";
+import { getMovieStatusAPI, getCategoryAPI } from "/@/api/home";
+import { Rank, Category, UpdataCategoryData } from "/@/types/rank";
 
 interface Casts {
   name:string // 主角名字
@@ -86,10 +86,22 @@ export default defineComponent({
       // router.push(`/movie/${id}`);
     }
 
+    // type: typeArrRef.value,
+    //     status: playTypeRef.value,
+    //     rate: scoreArrRef.value
+
+    // 获取新的数据请求
+    const updataCategory = (obj:UpdataCategoryData) => {
+      // const {  } = 
+     const { type, status, rate } = obj;
+      
+    };
+
     return {
       rankList: rankListRef,
       typeList: typeListRef,
-      goMoviePage
+      goMoviePage,
+      updataCategory
     }
   }
 })

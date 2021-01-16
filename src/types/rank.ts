@@ -23,3 +23,12 @@ export interface Play {
   name:PlayName
   type:PlayType
 }
+
+/**
+ * 更新分类
+ */
+export interface UpdataCategoryData {
+  type: number[]
+  status: string
+  rate: number[]
+}
