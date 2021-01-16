@@ -14,9 +14,6 @@
     <div class="spacing"></div>
 
     <!-- 推荐相关 -->
-    
-      <!-- <recommend-cmp>
-      </recommend-cmp> -->
     <div class="recommend">
       <h3>相关推荐</h3>
       <scroll-cmp :heightValue="53">
@@ -120,8 +117,6 @@ export default defineComponent({
     });
 
     const goMoviePage = (id:string) => {
-      console.log(id);
-      
       router.replace(`/movie/${id}`);
     }
 
