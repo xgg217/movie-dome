@@ -37,7 +37,6 @@ import { useRouter, useRoute } from "vue-router";
 import { Toast } from "vant"
 
 import VideoContent from "./cmp/VideoContent.vue";
-import Recommend from "./cmp/Recommend.vue";
 import Scroll from "/@/components/Scroll.vue"
 import RecommendCmp from "./cmp/RecommendCmp.vue";
 
@@ -56,7 +55,6 @@ export default defineComponent({
 
   components: {
     "video-content": VideoContent,
-    "recommend-cmp": Recommend,
     "scroll-cmp": Scroll,
     "relative-cmp": RecommendCmp,
   },
@@ -111,7 +109,7 @@ export default defineComponent({
           rate: item.rate, // 评分--如果没有上映就显示上映时间，否则显示电影评分
           casts: arr.join("/"), // 主角们
           poster: item.poster, // 图片地址
-          pubdate: item.pubdate, // 上映时间
+          pubdate: item.pubdate || "", // 上映时间
         };
       });
     });
