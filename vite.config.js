@@ -8,5 +8,5 @@ module.exports = {
     "/api": {
       target: "http://47.110.74.37:7001/"
     }
-  }
+  },
 }
