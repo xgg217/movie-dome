@@ -17,14 +17,25 @@
       <p class="right">简介<van-icon name="arrow" /></p>
     </div>
   </div>
+  <div class="explain">
+    <scroll-cmp :heightValue="53">
+      <explain-cmp >
+      </explain-cmp>
+    </scroll-cmp>
+    
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Icon } from 'vant';
+import Scroll from "/@/components/Scroll.vue"
+import ExplainCmp from "./ExplainCmp.vue";
 export default defineComponent({
   components: {
-    [Icon.name]: Icon
+    [Icon.name]: Icon,
+    "explain-cmp": ExplainCmp,
+    "scroll-cmp": Scroll,
   },
 
   props: {
