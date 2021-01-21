@@ -27,6 +27,11 @@
         </ul>
       </scroll-cmp>
     </div>
+
+    <!-- 详细简介 -->
+    <div class="explain">
+      <explain-cmp :explain="explain"></explain-cmp>
+    </div>
     
   </section>
 </template>
@@ -39,9 +44,10 @@ import { Toast } from "vant"
 import VideoContent from "./cmp/VideoContent.vue";
 import Scroll from "/@/components/Scroll.vue"
 import RecommendCmp from "./cmp/RecommendCmp.vue";
+import ExplainCmp from "./cmp/ExplainCmp.vue";
 
 import { getMovieAPI } from "/@/api/movie";
-import { Rank } from "/@/types/rank";
+import { Rank, Explain } from "/@/types/rank";
 
 interface Casts {
   name:string // 主角名字
@@ -49,6 +55,7 @@ interface Casts {
 
 interface MovieTypes {
   name: string
+  avatar?:string
 }
 
 export default defineComponent({
@@ -57,6 +64,7 @@ export default defineComponent({
     "video-content": VideoContent,
     "scroll-cmp": Scroll,
     "relative-cmp": RecommendCmp,
+    "explain-cmp": ExplainCmp,
   },
 
   setup() {
@@ -71,6 +79,17 @@ export default defineComponent({
       videoUrl: "", // 电影
       movieTypes: "", // 电影类型
       cover: "", // 视频下载时显示的图像,或者在用户点击播放按钮前显示的图像
+    });
+
+    // 详细简介
+    const explainRef = ref<Explain>({
+      name: "", // 电影名称
+      rate: "", // 评分
+      author: "", // 导演
+      casts: "", // 演员
+      movieTypes: "", // 电影类型
+      authorArr: [], // 演员 + 照片
+      summary: "", // 电影简介
     });
 
     watchEffect( async() => {
@@ -112,6 +131,23 @@ export default defineComponent({
           pubdate: item.pubdate || "", // 上映时间
         };
       });
+
+      // 详细简介
+      {
+        explainRef.value.name = movie.title;
+        explainRef.value.rate = movie.rate;
+        explainRef.value.author = movie.author;
+        explainRef.value.casts = movie.casts.map((item:MovieTypes):string => {
+          return item.name;
+        }).join("/");
+        explainRef.value.movieTypes = movie.movieTypes.map((item:any):string => {
+          return item.name
+        }).join("·");
+        explainRef.value.authorArr = movie.casts;
+        explainRef.value.summary = movie.summary;
+      }
+
+
     });
 
     const goMoviePage = (id:string) => {
@@ -120,6 +156,7 @@ export default defineComponent({
 
     return {
       relativeMoviesArr: relativeMoviesArrRef,
+      explain: explainRef,
       movieObj,
       goMoviePage,
     }

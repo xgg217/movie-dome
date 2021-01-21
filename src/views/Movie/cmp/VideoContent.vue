@@ -14,15 +14,10 @@
           <p>{{ duration }}</p>
         </div>
       </div>
-      <p class="right">简介<van-icon name="arrow" /></p>
+      <p class="right">
+        <van-icon name="arrow"></van-icon>
+      </p>
     </div>
-  </div>
-  <div class="explain">
-    <scroll-cmp :heightValue="53">
-      <explain-cmp >
-      </explain-cmp>
-    </scroll-cmp>
-    
   </div>
 </template>
 
@@ -30,11 +25,11 @@
 import { defineComponent } from "vue";
 import { Icon } from 'vant';
 import Scroll from "/@/components/Scroll.vue"
-import ExplainCmp from "./ExplainCmp.vue";
+
 export default defineComponent({
   components: {
     [Icon.name]: Icon,
-    "explain-cmp": ExplainCmp,
+    
     "scroll-cmp": Scroll,
   },
 
