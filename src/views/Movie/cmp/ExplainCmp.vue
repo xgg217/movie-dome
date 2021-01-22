@@ -2,46 +2,50 @@
   <div class="box">
     <scroll-cmp :heightValue="71.7">
       <div class="tit">
-        <h2>1212</h2>
+        <h2>{{ explain.name }}</h2>
         <p>
           <van-icon name="arrow-down"></van-icon>
         </p>
       </div>
       <div class="descript ">
-        <p class="ws">评分：</p>
-        <p class="ws">导演：sf大师傅似的士大夫士大夫士大夫大水发大水发士大夫士大夫</p>
-        <p class="ws">影人：</p>
-        <p class="ws">类型：</p>
+        <p class="ws">评分：{{ explain.rate }}</p>
+        <p class="ws">导演：{{ explain.author }}</p>
+        <p class="ws">影人：{{ setCastsType(explain.authorArr) }}</p>
+        <p class="ws">类型：{{ explain.movieTypes }}</p>
       </div>
 
       <div class="casts">
         <ul>
-          <li>
-            <div class="imgs">
-              <van-image
-                fit="contain"
-                width="60"
-                height="85"
-                src="https://img9.doubanio.com/view/celebrity/s_ratio_celebrity/public/p616.jpg"
-              ></van-image>
-            </div>
-            <p class="ws">1sfsdfsdfs2</p>
-          </li>
+          <template v-for="item of explain.authorArr" :key="item.avatar">
+            <li>
+              <div class="imgs">
+                <van-image
+                  fit="contain"
+                  width="60"
+                  height="85"
+                  :src="item.avatar"
+                ></van-image>
+              </div>
+              <p class="ws">{{ item.name }}</p>
+            </li>
+          </template>
         </ul>
       </div>
 
       <div class="summary">
         <h4>简介</h4>
-        <p>海神的女儿波妞从深海出逃玩耍，却被困在玻璃瓶里冲到岸上，碰巧被住在岸边悬崖的宗介救出，两人因此相识。但是波妞的父亲——魔法师藤本，认为人类世界肮脏丑陋，强行把波妞带回海里。面对父亲的阻挠、席卷小镇的海啸，以及永远失去魔法的威胁，波妞仍然大胆而坚决地决定——要变成人类跟宗介在一起。而承诺要永远保护波妞的宗介，也即将面临新的挑战...</p>
+        <p>{{ explain.summary }}</p>
       </div>
     </scroll-cmp>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType  } from "vue";
 import Scroll from "/@/components/Scroll.vue"
 import { Image, Icon } from "vant";
+
+import { Rank, Explain, MovieTypes } from "/@/types/rank";
 export default defineComponent({
   components:{
     [Image.name]: Image,
@@ -55,9 +59,27 @@ export default defineComponent({
       default: 40
     },
     explain: {
-      // type
+      type: Object as PropType<Explain>,
+      required: true,
+      validator(explain:Explain) {
+        return !!explain.name
+      }
     }
   },
+
+  setup() {
+
+    const setCastsType = (arr:MovieTypes[]):string => {
+      return arr.map((item:MovieTypes):string => {
+        return item.name;
+      }).join("/");
+    }
+
+    return {
+      setCastsType
+    }
+  },
+
 })
 </script>
 
@@ -114,6 +136,8 @@ export default defineComponent({
       p {
         width: 100%;
         margin-top: 10px;
+        font-size: 13px;
+        text-align: center;
       }
 
       
