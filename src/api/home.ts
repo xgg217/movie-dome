@@ -44,13 +44,34 @@ const getCategoryAPI = ():any => {
     url: `/api/category`,
     method: 'get',
   })
-}
+};
 
+/**
+ * 电影模糊搜索
+ */
+const getSearchAPI = (val:string):any => {
+  return request({
+    url: `/api/movie/search?keyword=${ val }`,
+    method: 'get',
+  })
+};
+
+/**
+ * 热门搜索
+ */
+const getKeywordAPI = ():any => {
+  return request({
+    url: `/api/keyword`,
+    method: 'get',
+  })
+};
 
 export {
   getHotAPI,
   getRankAPI,
   getMovieStatusAPI,
-  getCategoryAPI
+  getCategoryAPI,
+  getSearchAPI,
+  getKeywordAPI,
 }
 
