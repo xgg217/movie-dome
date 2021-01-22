@@ -8,6 +8,7 @@
         :videoUrl="movieObj.videoUrl"
         :movieTypes="movieObj.movieTypes"
         :cover="movieObj.cover"
+        v-model:isShow="isShow"
       >
       </video-content>
     </div>
@@ -29,8 +30,11 @@
     </div>
 
     <!-- 详细简介 -->
-    <div class="explain">
-      <explain-cmp :explain="explain"></explain-cmp>
+    <div class="explain" v-show="isShow">
+      <explain-cmp
+        :explain="explain"
+        v-model:isShow="isShow"
+      ></explain-cmp>
     </div>
     
   </section>
@@ -53,11 +57,6 @@ interface Casts {
   name:string // 主角名字
 }
 
-// interface MovieTypes {
-//   name: string
-//   avatar?:string
-// }
-
 export default defineComponent({
 
   components: {
@@ -70,6 +69,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const route = useRoute();
+
+    const isShowRef = ref(false);
 
     const relativeMoviesArrRef = ref<Rank[]>([]);
     const movieObj = reactive({
@@ -149,16 +150,15 @@ export default defineComponent({
 
     const goMoviePage = (id:string) => {
       router.replace(`/movie/${id}`);
-    }
+    };
 
     return {
       relativeMoviesArr: relativeMoviesArrRef,
       explain: explainRef,
       movieObj,
       goMoviePage,
+      isShow: isShowRef,
     }
-
-
   }
 })
 </script>

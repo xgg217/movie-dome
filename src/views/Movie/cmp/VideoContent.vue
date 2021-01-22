@@ -14,7 +14,7 @@
           <p>{{ duration }}</p>
         </div>
       </div>
-      <p class="right">
+      <p class="right" @click="handleShow">
         <van-icon name="arrow"></van-icon>
       </p>
     </div>
@@ -41,6 +41,19 @@ export default defineComponent({
     movieTypes: String, // 电影类型
     cover: String, // 电影类型
     movieObj:String, // 上映时间
+  },
+
+  setup(props, ctx) {
+    const handleShow = () => {
+      console.log(12);
+      
+      // ctx.emit("updataShow", true);
+      ctx.emit("update:isShow", true);
+    }
+
+    return {
+      handleShow
+    }
   }
 })
 </script>

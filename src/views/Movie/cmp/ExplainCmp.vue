@@ -3,7 +3,7 @@
     <scroll-cmp :heightValue="71.7">
       <div class="tit">
         <h2>{{ explain.name }}</h2>
-        <p>
+        <p @click="handleShow">
           <van-icon name="arrow-down"></van-icon>
         </p>
       </div>
@@ -67,16 +67,21 @@ export default defineComponent({
     }
   },
 
-  setup() {
+  setup(props, ctx) {
 
     const setCastsType = (arr:MovieTypes[]):string => {
       return arr.map((item:MovieTypes):string => {
         return item.name;
       }).join("/");
+    };
+
+    const handleShow = () => {
+      ctx.emit("update:isShow", false);
     }
 
     return {
-      setCastsType
+      setCastsType,
+      handleShow
     }
   },
 
@@ -90,7 +95,6 @@ export default defineComponent({
   left: 0;
   // border: 1px solid red;
   width: 100vw;
-  // height: 71.7vh;
   background-color: #fff;
   z-index: 10;
   box-sizing: border-box;
@@ -139,8 +143,6 @@ export default defineComponent({
         font-size: 13px;
         text-align: center;
       }
-
-      
     }
   }
 }
