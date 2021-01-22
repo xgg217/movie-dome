@@ -24,7 +24,7 @@ const routes:RouteRecordRaw[] = [
         component: () => import("/@/views/Rank/Index.vue")
       }, {
         path: "search",
-        component: () => import("/@/views/Search.vue")
+        component: () => import("/@/views/Search/Index.vue")
       },
     ]
   }, {
