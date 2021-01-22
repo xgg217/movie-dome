@@ -16,9 +16,9 @@
 
       <div class="casts">
         <ul>
-          <template v-for="item of explain.authorArr" :key="item.avatar">
+          <template v-for="(item, index) of explain.authorArr" :key="item.avatar">
             <li>
-              <div class="imgs">
+              <div class="imgs" @click="handleImagePreview(index)">
                 <van-image
                   fit="contain"
                   width="60"
@@ -41,9 +41,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType  } from "vue";
+import { computed, defineComponent, PropType } from "vue";
 import Scroll from "/@/components/Scroll.vue"
-import { Image, Icon } from "vant";
+import { Image, Icon, ImagePreview } from "vant";
 
 import { Rank, Explain, MovieTypes } from "/@/types/rank";
 export default defineComponent({
@@ -75,13 +75,30 @@ export default defineComponent({
       }).join("/");
     };
 
+    const imgArrRef = computed(() => {
+      return (props?.explain?.authorArr ?? []).map((item:any):string => {
+        return item.avatar;
+      })
+    })
+
+    const handleImagePreview = (index:number) => {
+      ImagePreview({
+        images:[...imgArrRef.value],
+        startPosition: index
+      });
+    };
+
+    /**
+     * 显示/关闭 详细介绍
+     */
     const handleShow = () => {
       ctx.emit("update:isShow", false);
     }
 
     return {
       setCastsType,
-      handleShow
+      handleShow,
+      handleImagePreview
     }
   },
 
@@ -136,6 +153,7 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-right: 5px;
 
       p {
         width: 100%;
