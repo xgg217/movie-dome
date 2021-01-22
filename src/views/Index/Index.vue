@@ -2,7 +2,7 @@
   <section>
     <scroll-cmp>
       <div class="box">
-        <div class="info">
+        <div class="info" @click="goListPage(1)">
           <h2>正在热映({{ playingCount }})</h2>
           <van-icon size="20" name="arrow"></van-icon>
         </div>
@@ -20,7 +20,7 @@
       <div class="spacing"></div>
 
       <div class="box">
-        <div class="info">
+        <div class="info" @click="goListPage(0)">
           <h2>即将上映({{ commingCount }})</h2>
           <van-icon size="20" name="arrow"></van-icon>
         </div>
@@ -106,14 +106,23 @@ export default defineComponent({
     // 跳转到预告片页面
     const goMoviePage = (id:string) => {
       router.push(`/movie/${id}`);
-    }
+    };
+
+    /**
+     * 电影列表页面
+     */
+    const goListPage = (index:number) => {
+      console.log(index);
+      router.push(`/list/${ index }`);
+    };
 
     return {
       commingCount: toRef(commingRef, "count"), // 即将上映
       commingMovies: toRef(commingRef, "movies"),
       playingCount: toRef(playingRef, "count"), // 正在热映
       playingMovies: toRef(playingRef, "movies"),
-      goMoviePage
+      goMoviePage,
+      goListPage
     }
 
   }
