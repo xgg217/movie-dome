@@ -1,6 +1,8 @@
 <template>
   <header>
-    <div class="logo"></div>
+    <div class="logo">
+      <van-image width="25vw" height="56" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2791654734,3170401498&fm=26&gp=0.jpg" />
+    </div>
     <ul>
       <!-- 内容切换 -->
       <template v-for="item of routerArr" :key="item.title">
@@ -28,7 +30,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { Icon } from 'vant';
+import { Icon, Image  } from 'vant';
+// import logoImg from "./../assets/images/路飞头像.jpg";
+// const logoImg = require("./../assets/images/路飞头像.jpg")
 
 interface Urls {
   title: string
@@ -38,6 +42,7 @@ export default defineComponent({
 
   components: {
     [Icon.name]: Icon,
+    [Image.name]: Image,
   },
 
 
@@ -70,7 +75,6 @@ export default defineComponent({
 <style scoped lang="less">
 header {
   height: 56px;
-  border: 1px solid #000;
   display: flex;
   background-color: #1c2635;
 }
@@ -78,7 +82,6 @@ header {
 .logo {
   width: 25%;
   height: 56px;
-  border: 1px solid red;
 }
 
 ul {
