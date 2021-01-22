@@ -34,7 +34,7 @@ const routes:RouteRecordRaw[] = [
     path: "/movie/:id",
     component: () => import("/@/views/Movie/Index.vue")
   }, {
-    path: "/list/:id",
+    path: "/list/:index",
     component: () => import("/@/views/List/Index.vue")
   }
 ];
