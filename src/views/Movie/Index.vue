@@ -1,5 +1,13 @@
 <template>
   <section>
+    <van-nav-bar
+      title="介绍"
+      left-text="返回"
+      left-arrow
+      @click-left="onClickLeft"
+    >
+    </van-nav-bar>
+
     <div class="videos">
       <video-content
         :title="movieObj.title"
@@ -17,7 +25,7 @@
     <!-- 推荐相关 -->
     <div class="recommend">
       <h3>相关推荐</h3>
-      <scroll-cmp :heightValue="53">
+      <scroll-cmp :heightValue="46.5">
         <ul>
           <template v-for="item of relativeMoviesArr" :key="item.id">
             <relative-cmp
@@ -43,7 +51,7 @@
 <script lang="ts">
 import { defineComponent, watchEffect, ref, reactive, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { Toast } from "vant"
+import { Toast, NavBar } from "vant";
 
 import VideoContent from "./cmp/VideoContent.vue";
 import Scroll from "/@/components/Scroll.vue"
@@ -64,6 +72,7 @@ export default defineComponent({
     "scroll-cmp": Scroll,
     "relative-cmp": RecommendCmp,
     "explain-cmp": ExplainCmp,
+    [NavBar.name]: NavBar,
   },
 
   setup() {
@@ -144,9 +153,11 @@ export default defineComponent({
         explainRef.value.authorArr = movie.casts;
         explainRef.value.summary = movie.summary;
       }
-
-
     });
+
+    const onClickLeft = () => {
+      router.go(-1);
+    };
 
     const goMoviePage = (id:string) => {
       router.replace(`/movie/${id}`);
@@ -158,6 +169,7 @@ export default defineComponent({
       movieObj,
       goMoviePage,
       isShow: isShowRef,
+      onClickLeft
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <scroll-cmp :heightValue="71.7">
+    <scroll-cmp :heightValue="66.5">
       <div class="tit">
         <h2>{{ explain.name }}</h2>
         <p @click="handleShow">
@@ -68,7 +68,6 @@ export default defineComponent({
   },
 
   setup(props, ctx) {
-
     const setCastsType = (arr:MovieTypes[]):string => {
       return arr.map((item:MovieTypes):string => {
         return item.name;
@@ -108,7 +107,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .box {
   position: fixed;
-  top: 28vh;
+  top: 32vh;
   left: 0;
   // border: 1px solid red;
   width: 100vw;
