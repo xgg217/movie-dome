@@ -34,7 +34,7 @@ export interface UpdataCategoryData {
 }
 
 export interface MovieTypes {
-  avatar:string // 照片url
+  avatar?:string // 照片url
   name:string // 演员名称
 
 }
@@ -46,7 +46,7 @@ export interface Explain {
   name:string // 电影名称
   rate:string // 评分
   author:string // 导演
-  casts:string // 演员
+  // casts:string // 演员
   movieTypes:string // 电影类型
   authorArr: MovieTypes[], // 演员 + 照片
   summary: string // 电影简介

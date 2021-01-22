@@ -47,16 +47,16 @@ import RecommendCmp from "./cmp/RecommendCmp.vue";
 import ExplainCmp from "./cmp/ExplainCmp.vue";
 
 import { getMovieAPI } from "/@/api/movie";
-import { Rank, Explain } from "/@/types/rank";
+import { Rank, Explain, MovieTypes } from "/@/types/rank";
 
 interface Casts {
   name:string // 主角名字
 }
 
-interface MovieTypes {
-  name: string
-  avatar?:string
-}
+// interface MovieTypes {
+//   name: string
+//   avatar?:string
+// }
 
 export default defineComponent({
 
@@ -86,7 +86,7 @@ export default defineComponent({
       name: "", // 电影名称
       rate: "", // 评分
       author: "", // 导演
-      casts: "", // 演员
+      // casts: "", // 演员
       movieTypes: "", // 电影类型
       authorArr: [], // 演员 + 照片
       summary: "", // 电影简介
@@ -137,9 +137,6 @@ export default defineComponent({
         explainRef.value.name = movie.title;
         explainRef.value.rate = movie.rate;
         explainRef.value.author = movie.author;
-        explainRef.value.casts = movie.casts.map((item:MovieTypes):string => {
-          return item.name;
-        }).join("/");
         explainRef.value.movieTypes = movie.movieTypes.map((item:any):string => {
           return item.name
         }).join("·");
