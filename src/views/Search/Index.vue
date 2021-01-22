@@ -19,7 +19,7 @@
           </rank-card>
         </template>
       </ul>
-      <van-empty v-show="!rankList.length" description="暂无数据"></van-empty>
+      <van-empty v-show="isRankList" description="暂无数据"></van-empty>
     </scroll-cmp>
   </div>
   <div class="hou" v-show="!searchValue.length">
@@ -72,6 +72,7 @@ export default defineComponent({
     const searchValueRef = ref("");
 
     const rankListRef = ref<Rank[]>([]);
+    const isRankListRef = ref(false);
 
     const onSearch = (val:string) => {
       if(val) {
@@ -92,6 +93,14 @@ export default defineComponent({
 
       const { code, errMsg, data }= await getSearchAPI(searchValueRef.value);
       Toast.clear();
+
+      if(!data.length) {
+        isRankListRef.value = true;
+        rankListRef.value = [];
+        return
+      }
+
+      isRankListRef.value = false;
 
       rankListRef.value = data.map((item:any):Rank => {
 
@@ -145,6 +154,7 @@ export default defineComponent({
       onSearch,
       debounceSearch,
       searchHou,
+      isRankList: isRankListRef
     }
   }
 })
