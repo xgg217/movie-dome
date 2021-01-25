@@ -10,7 +10,18 @@ const getMovieAPI = (ids:string):any => {
   })
 }
 
+/**
+ * 获取 电影 分类 列表
+ */
+const getStatusListAPI = (page:number, pageSize:number, status:number):any => {
+  return request({
+    url: `/api/movie/status?page=${ page }&pageSize=${ pageSize }&status=${ status }`,
+    method: 'get',
+  })
+}
+
 export {
-  getMovieAPI
+  getMovieAPI,
+  getStatusListAPI
 }
 
