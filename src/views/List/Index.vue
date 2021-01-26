@@ -88,7 +88,6 @@ export default defineComponent({
      * 获取列表数据
      */
     const getListAsync = async() => {
-      // if(!pageObj.loading) { return }
 
       const { code, errMsg, data } = await getStatusListAPI(pageObj.index, pageObj.size, pageObj.activeStatus);
 
@@ -133,7 +132,7 @@ export default defineComponent({
     };
 
     // 初始化
-    onClick(pageObj.activeStatus);
+    // onClick(pageObj.activeStatus);
 
     /**
      * 返回上一页
